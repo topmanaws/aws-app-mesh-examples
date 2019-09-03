@@ -18,7 +18,7 @@ Resources:
     Type: AWS::AppMesh::VirtualNode
     Properties:
       MeshName: !Ref AppMeshMeshName
-      VirtualNodeName: colorteller-black-vn
+      VirtualNodeName: !Sub 'colorteller-black-vn-${EnvironmentName}'
       Spec:
         Listeners:
           - PortMapping:
@@ -39,7 +39,7 @@ Resources:
     Type: AWS::AppMesh::VirtualNode
     Properties:
       MeshName: !Ref AppMeshMeshName
-      VirtualNodeName: colorteller-blue-vn
+      VirtualNodeName: !Sub 'colorteller-blue-vn-${EnvironmentName}'
       Spec:
         Listeners:
           - PortMapping:
@@ -60,7 +60,7 @@ Resources:
     Type: AWS::AppMesh::VirtualNode
     Properties:
       MeshName: !Ref AppMeshMeshName
-      VirtualNodeName: colorteller-red-vn
+      VirtualNodeName: !Sub 'colorteller-red-vn-${EnvironmentName}'
       Spec:
         Listeners:
           - PortMapping:
@@ -81,7 +81,7 @@ Resources:
     Type: AWS::AppMesh::VirtualNode
     Properties:
       MeshName: !Ref AppMeshMeshName
-      VirtualNodeName: colorteller-white-vn
+      VirtualNodeName: !Sub 'colorteller-white-vn-${EnvironmentName}'
       Spec:
         Listeners:
           - PortMapping:
@@ -102,7 +102,7 @@ Resources:
     Type: AWS::AppMesh::VirtualRouter
     Properties:
       MeshName: !Ref AppMeshMeshName
-      VirtualRouterName: colorteller-vr
+      VirtualRouterName: !Sub 'colorteller-vr-${EnvironmentName}'
       Spec:
         Listeners:
           - PortMapping:
@@ -118,17 +118,17 @@ Resources:
       - ColorTellerBlueVirtualNode
     Properties:
       MeshName: !Ref AppMeshMeshName
-      VirtualRouterName: colorteller-vr
-      RouteName: colorteller-route
+      VirtualRouterName: !Sub 'colorteller-vr-${EnvironmentName}'
+      RouteName: !Sub 'colorteller-route-${EnvironmentName}'
       Spec:
         HttpRoute:
           Action:
             WeightedTargets:
-              - VirtualNode: colorteller-white-vn
+              - VirtualNode: !Sub 'colorteller-white-vn-${EnvironmentName}'
                 Weight: 1
-              - VirtualNode: colorteller-blue-vn
+              - VirtualNode: !Sub 'colorteller-blue-vn-${EnvironmentName}'
                 Weight: 1
-              - VirtualNode: colorteller-red-vn
+              - VirtualNode: !Sub 'colorteller-red-vn-${EnvironmentName}'
                 Weight: 1
           Match:
             Prefix: "/"
@@ -143,13 +143,13 @@ Resources:
       Spec:
         Provider:
           VirtualRouter:
-            VirtualRouterName: colorteller-vr
+            VirtualRouterName: !Sub 'colorteller-vr-${EnvironmentName}'
 
   TcpEchoVirtualNode:
     Type: AWS::AppMesh::VirtualNode
     Properties:
       MeshName: !Ref AppMeshMeshName
-      VirtualNodeName: tcpecho-vn
+      VirtualNodeName: !Sub 'tcpecho-vn-${EnvironmentName}'
       Spec:
         Listeners:
           - PortMapping:
@@ -175,7 +175,7 @@ Resources:
       Spec:
         Provider:
           VirtualNode:
-            VirtualNodeName: tcpecho-vn
+            VirtualNodeName: !Sub 'tcpecho-vn-${EnvironmentName}'
 
   ColorGatewayVirtualNode:
     Type: AWS::AppMesh::VirtualNode
@@ -184,7 +184,7 @@ Resources:
       - TcpEchoVirtualService
     Properties:
       MeshName: !Ref AppMeshMeshName
-      VirtualNodeName: colorgateway-vn
+      VirtualNodeName: !Sub 'colorgateway-vn-${EnvironmentName}'
       Spec:
         Listeners:
           - PortMapping:
