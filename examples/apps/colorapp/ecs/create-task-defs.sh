@@ -47,7 +47,7 @@ generate_envoy_container_json() {
     app_name=$1
     envoy_container_json=$(jq -n \
     --arg ENVOY_IMAGE $ENVOY_IMAGE \
-    --arg VIRTUAL_NODE "mesh/$MESH_NAME/virtualNode/${app_name}-vn${ENVIRONMENT_NAME}" \
+    --arg VIRTUAL_NODE "mesh/$MESH_NAME/virtualNode/${app_name}-vn-${ENVIRONMENT_NAME}" \
     --arg APPMESH_XDS_ENDPOINT "${APPMESH_XDS_ENDPOINT}" \
     --arg ENVOY_LOG_LEVEL $envoy_log_level \
     --arg ECS_SERVICE_LOG_GROUP $ecs_service_log_group \
